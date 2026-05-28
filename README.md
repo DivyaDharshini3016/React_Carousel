@@ -1,5 +1,5 @@
 # Ex05 Image Carousel
-## Date:
+## Date: 28/05/2026
 
 ## AIM
 To create a Image Carousel using React 
@@ -39,9 +39,112 @@ Use setInterval to call the nextImage() function at regular intervals.
 Clean up the interval when the component unmounts using clearInterval to prevent memory leaks.
 
 ## PROGRAM
+### Carousel.jsx:
+```
+import React, { useState, useEffect } from "react";
+import "./Carousel.css";
 
+import img1 from "./assets/img1.png";
+import img2 from "./assets/img2.png";
+import img3 from "./assets/img3.png";
+import img4 from "./assets/img4.png";
+
+function Carousel() {
+  const images = [img1, img2, img3, img4];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextImage = () => {
+    setCurrentIndex((currentIndex + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentIndex((currentIndex - 1 + images.length) % images.length);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextImage();
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [currentIndex]);
+
+  return (
+    <div className="carousel-container">
+      <h2>Image Carousel</h2>
+
+      <img
+        src={images[currentIndex]}
+        alt="carousel"
+        className="carousel-image"
+      />
+
+      <div className="buttons">
+        <button onClick={prevImage}>⬅ Previous</button>
+        <button onClick={nextImage}>Next ➡</button>
+      </div>
+    </div>
+  );
+}
+
+export default Carousel;
+
+```
+### Carousel.css
+```
+.carousel-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.carousel-image {
+  width: 600px;
+  height: 300px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+}
+
+.buttons {
+  margin-top: 15px;
+}
+
+button {
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+```
+
+### App.jsx
+```
+import Carousel from "./Carousel";
+
+function App() {
+  return (
+    <div>
+      <Carousel />
+    </div>
+  );
+}
+
+export default App;
+```
 
 ## OUTPUT
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/69f9b76d-e9da-4a27-b6c1-1e3ac98f9518" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3c7bd33a-c7d2-452b-b59e-d82b8f19cb65" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/16710ab7-e89c-4baf-a95f-fdf48c37b0b1" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/1d6a64c6-2c72-496b-b223-a6cc707fdea2" />
 
 
 ## RESULT
